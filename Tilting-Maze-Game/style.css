@@ -145,6 +145,27 @@ body {
   transition: opacity 2s;
 }
 
+.mode-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mode-buttons button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background-color: var(--joystick-color);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.85em;
+}
+
+.mode-buttons button:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 720px) {
   #game {
     grid-template-columns: 1fr;

@@ -81,6 +81,9 @@ const mazeElement = document.getElementById("maze");
 const endElement = document.getElementById("end");
 const joystickHeadElement = document.getElementById("joystick-head");
 const noteElement = document.getElementById("note"); // Note element for instructions and game won, game failed texts
+const easyButton = document.getElementById("mode-easy");
+const hardButton = document.getElementById("mode-hard");
+const noteText = document.getElementById("note-text");
 
 let hardMode = false;
 let previousTimestamp;
@@ -319,31 +322,19 @@ window.addEventListener("mousemove", function (event) {
 });
 
 window.addEventListener("keydown", function (event) {
-  // If not an arrow key or space or H was pressed then return
-  if (![" ", "H", "h", "E", "e"].includes(event.key)) return;
-
-  // If an arrow key was pressed then first prevent default
+  if (event.key !== " ") return;
   event.preventDefault();
+  resetGame();
+});
 
-  // If space was pressed restart the game
-  if (event.key == " ") {
-    resetGame();
-    return;
-  }
+easyButton.addEventListener("click", () => {
+  hardMode = false;
+  resetGame();
+});
 
-  // Set Hard mode
-  if (event.key == "H" || event.key == "h") {
-    hardMode = true;
-    resetGame();
-    return;
-  }
-
-  // Set Easy mode
-  if (event.key == "E" || event.key == "e") {
-    hardMode = false;
-    resetGame();
-    return;
-  }
+hardButton.addEventListener("click", () => {
+  hardMode = true;
+  resetGame();
 });
 
 function resetGame() {
@@ -366,11 +357,9 @@ function resetGame() {
       `;
 
   if (hardMode) {
-    noteElement.innerHTML = `Click the joystick to start!
-          <p>Hard mode, Avoid black holes. Back to easy mode? Press E</p>`;
+    noteText.textContent = "Hard mode, avoid black holes.";
   } else {
-    noteElement.innerHTML = `Click the joystick to start!
-          <p>Move every ball to the center. Ready for hard mode? Press H</p>`;
+    noteText.textContent = "Satukan bola dan arahkan ke lingkaran.";
   }
   noteElement.style.opacity = 1;
 
