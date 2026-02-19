@@ -1,0 +1,78 @@
+:root {
+    --bg: #0f172a;
+    --panel: #111827;
+    --card: #1f2937;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+}
+
+body {
+    font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+    background: radial-gradient(1200px 800px at 10% 10%, #1e293b 0%, #0f172a 45%, #0b1220 100%);
+    color: var(--text);
+}
+
+.page {
+    width: min(1200px, 92vw);
+    margin: 0 auto;
+    padding: 48px 0 64px;
+}
+
+.hero {
+    margin-bottom: 28px;
+}
+
+.hero h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 3vw, 40px);
+    letter-spacing: 0.5px;
+}
+
+.hero p {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(14px, 1.6vw, 18px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text);
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.12), rgba(56, 189, 248, 0.02));
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 14px;
+    padding: 18px 14px;
+    min-height: 88px;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.45);
+}
+
+.card-title {
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+@media (max-width: 640px) {
+    .page {
+        padding: 32px 0 48px;
+    }
+
+    .card {
+        min-height: 72px;
+    }
+}
