@@ -50,10 +50,16 @@ function candyCrushGame() {
         squares.forEach(square => square.addEventListener("dragenter", dragEnter));
         squares.forEach(square => square.addEventListener("dragleave", dragLeave));
         squares.forEach(square => square.addEventListener("drop", dragDrop));
+        squares.forEach(square => square.addEventListener("touchstart", touchStart, { passive: false }));
+        squares.forEach(square => square.addEventListener("touchmove", touchMove, { passive: false }));
+        squares.forEach(square => square.addEventListener("touchend", touchEnd));
     }
 
     // Drag and Drop Functions
     let colorBeingDragged, colorBeingReplaced, squareIdBeingDragged, squareIdBeingReplaced;
+    let touchStartId = null;
+    let touchStartColor = "";
+    let touchTargetId = null;
 
     function dragStart() {
         colorBeingDragged = this.style.backgroundImage;
@@ -99,6 +105,49 @@ function candyCrushGame() {
             // No drop occurred, revert to original
             squares[squareIdBeingDragged].style.backgroundImage = colorBeingDragged;
         }
+    }
+
+    function touchStart(e) {
+        e.preventDefault();
+        const target = e.currentTarget;
+        touchStartId = parseInt(target.id);
+        touchStartColor = target.style.backgroundImage;
+        touchTargetId = null;
+    }
+
+    function touchMove(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        if (!touch) return;
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        const square = el && el.closest ? el.closest(".grid div") : null;
+        if (square && square.id) {
+            touchTargetId = parseInt(square.id);
+        }
+    }
+
+    function touchEnd() {
+        if (touchStartId === null) return;
+        const startId = touchStartId;
+        const endId = touchTargetId;
+
+        if (endId !== null && endId !== startId) {
+            const validMoves = [
+                startId - 1,
+                startId - width,
+                startId + 1,
+                startId + width
+            ];
+            if (validMoves.includes(endId)) {
+                const temp = squares[endId].style.backgroundImage;
+                squares[endId].style.backgroundImage = touchStartColor;
+                squares[startId].style.backgroundImage = temp;
+            }
+        }
+
+        touchStartId = null;
+        touchStartColor = "";
+        touchTargetId = null;
     }
 
     // Move Candies Down
@@ -187,7 +236,7 @@ function candyCrushGame() {
     function startGame(mode) {
         currentMode = mode;
         modeSelection.style.display = "none";
-        grid.style.display = "flex";
+        grid.style.display = "grid";
         scoreDisplay.parentElement.style.display = "flex"; // Show scoreboard
         createBoard();
         score = 0;

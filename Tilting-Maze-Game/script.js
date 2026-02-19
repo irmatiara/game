@@ -78,6 +78,7 @@ const slow = (number, difference) => {
 };
 
 const mazeElement = document.getElementById("maze");
+const endElement = document.getElementById("end");
 const joystickHeadElement = document.getElementById("joystick-head");
 const noteElement = document.getElementById("note"); // Note element for instructions and game won, game failed texts
 
@@ -91,10 +92,49 @@ let accelerationY;
 let frictionX;
 let frictionY;
 
-const pathW = 25; // Path width
-const wallW = 10; // Wall width
-const ballSize = 10; // Width and height of the ball
-const holeSize = 18;
+const baseSizes = {
+  mazeWidth: 350,
+  mazeHeight: 315,
+  pathW: 25,
+  wallW: 10,
+  ballSize: 10,
+  holeSize: 18,
+  endSize: 65,
+};
+
+const computeScale = () => {
+  const maxWidth = Math.min(window.innerWidth - 32, baseSizes.mazeWidth);
+  const maxHeight = Math.min(window.innerHeight - 32, baseSizes.mazeHeight);
+  return Math.min(
+    1,
+    maxWidth / baseSizes.mazeWidth,
+    maxHeight / baseSizes.mazeHeight
+  );
+};
+
+let scale = 1;
+let mazeWidth = baseSizes.mazeWidth;
+let mazeHeight = baseSizes.mazeHeight;
+let pathW = baseSizes.pathW; // Path width
+let wallW = baseSizes.wallW; // Wall width
+let ballSize = baseSizes.ballSize; // Width and height of the ball
+let holeSize = baseSizes.holeSize;
+let endSize = baseSizes.endSize;
+
+const applySizing = () => {
+  scale = computeScale();
+  mazeWidth = baseSizes.mazeWidth * scale;
+  mazeHeight = baseSizes.mazeHeight * scale;
+  pathW = baseSizes.pathW * scale;
+  wallW = baseSizes.wallW * scale;
+  ballSize = baseSizes.ballSize * scale;
+  holeSize = baseSizes.holeSize * scale;
+  endSize = baseSizes.endSize * scale;
+
+  mazeElement.style.setProperty("--maze-width", `${mazeWidth}px`);
+  mazeElement.style.setProperty("--maze-height", `${mazeHeight}px`);
+  mazeElement.style.setProperty("--end-size", `${endSize}px`);
+};
 
 const debugMode = false;
 
@@ -102,6 +142,7 @@ let balls = [];
 let ballElements = [];
 let holeElements = [];
 
+applySizing();
 resetGame();
 
 // Draw balls for the first time
@@ -265,9 +306,7 @@ window.addEventListener("mousemove", function (event) {
     const rotationY = mouseDeltaX * 0.8; // Max rotation = 12
     const rotationX = mouseDeltaY * 0.8;
 
-    mazeElement.style.cssText = `
-          transform: rotateY(${rotationY}deg) rotateX(${-rotationX}deg)
-        `;
+    mazeElement.style.transform = `rotateY(${rotationY}deg) rotateX(${-rotationX}deg)`;
 
     const gravity = 2;
     const friction = 0.01; // Coefficients of friction
@@ -317,9 +356,7 @@ function resetGame() {
   frictionX = undefined;
   frictionY = undefined;
 
-  mazeElement.style.cssText = `
-        transform: rotateY(0deg) rotateX(0deg)
-      `;
+  mazeElement.style.transform = "rotateY(0deg) rotateX(0deg)";
 
   joystickHeadElement.style.cssText = `
         left: 0;
@@ -649,7 +686,9 @@ function main(timestamp) {
     // Win detection
     if (
       balls.every(
-        (ball) => distance2D(ball, { x: 350 / 2, y: 315 / 2 }) < 65 / 2
+        (ball) =>
+          distance2D(ball, { x: mazeWidth / 2, y: mazeHeight / 2 }) <
+          endSize / 2
       )
     ) {
       noteElement.innerHTML = `Congrats, you did it!

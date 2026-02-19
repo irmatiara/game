@@ -40,7 +40,9 @@ canvas {
   background-color: var(--canvas-color);
   display: block;
   border-radius: 5px;
-  width: 800px;
+  width: min(800px, 96vw);
+  height: auto;
+  max-height: 75vh;
   max-width: 96%;
 }
 
@@ -80,10 +82,10 @@ canvas {
   background-color: var(--sidebar-color);
   color: var(--text-color);
   min-height: 100vh;
-  width: 400px;
+  width: min(400px, 92vw);
   padding: 3rem;
   line-height: 1.5;
-  transform: translateX(-400px);
+  transform: translateX(-100%);
   transition: transform 1s ease-in-out;
 }
 

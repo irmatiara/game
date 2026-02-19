@@ -6,32 +6,32 @@ html {
   font-family: cursive, sans-serif;
 }
 #container {
-  width: 750px;
-  height: 600px;
+  width: min(750px, 94vw);
+  height: auto;
   margin: 10px auto;
-  padding: 20px;
+  padding: clamp(12px, 3vw, 20px);
   border-radius: 10px;
   position: relative;
 }
 
 #front {
-  font-size: 40px;
+  font-size: clamp(22px, 4vw, 40px);
   color: #d3901d;
-  width: 650px;
-  height: 450px;
+  width: min(650px, 90%);
+  height: min(450px, 70vh);
   padding: 10px;
   margin: 30px auto 20px auto;
   z-index: 2;
   display: none;
 }
 #front img {
-  width: 280px;
+  width: min(280px, 70%);
 }
 #instructions {
-  width: 450px;
+  width: min(450px, 90%);
   height: 50px;
   margin: 10px auto;
-  font-size: 30px;
+  font-size: clamp(18px, 3.2vw, 30px);
 
   background-color: #d3901d;
   color: #2e1d11;
@@ -43,8 +43,8 @@ html {
 #fruitcontainer {
   background: url(https://raw.githubusercontent.com/Saumya-07/Fruit-Slicer/master/images/wood-bg2.jpg);
   background-size: cover;
-  width: 650px;
-  height: 450px;
+  width: min(650px, 90%);
+  height: min(450px, 70vh);
   padding: 10px;
   margin: 30px auto 20px auto;
   background-color: white;
@@ -83,7 +83,8 @@ html {
   margin-top: 7px;
   display: flex;
   position: absolute;
-  left: 550px;
+  right: 16px;
+  left: auto;
   background-color: transparent;
   z-index: 1;
 }
@@ -114,15 +115,16 @@ html {
 
 #gameOver {
   box-sizing: border-box;
-  width: 500px;
-  height: 300px;
+  width: min(500px, 90%);
+  height: auto;
   background: transparent;
   color: #d3901d;
   text-transform: upperCase;
   text-align: center;
-  font-size: 3em;
+  font-size: clamp(1.8em, 5vw, 3em);
   position: absolute;
-  top: 170px;
-  left: 150px;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
 }

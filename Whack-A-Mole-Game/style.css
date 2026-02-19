@@ -21,17 +21,18 @@ body {
   font-family: "Nunito", sans-serif;
   background: #fff9e2;
   text-align: center;
+  min-height: 100vh;
 }
 
 h1 {
-  font-size: 4.5rem;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
   line-height: 1;
   margin: 2rem 0 0 0;
   color: #ff7660;
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4.5vw, 3rem);
   color: #3b1010;
   margin: 2rem;
 }
@@ -47,8 +48,9 @@ h2 {
 }
 
 .game {
-  width: 600px;
-  height: 400px;
+  width: min(600px, 92vw);
+  height: auto;
+  aspect-ratio: 3 / 2;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -69,10 +71,10 @@ h2 {
   background-size: contain;
   content: "";
   width: 100%;
-  height: 70px;
+  height: clamp(40px, 12vmin, 70px);
   position: absolute;
   z-index: 2;
-  bottom: -30px;
+  bottom: clamp(-30px, -4vmin, -20px);
 }
 
 .mole {

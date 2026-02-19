@@ -20,22 +20,24 @@ body,
 body {
   background-color: black;
   color: white;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 16px 0 24px;
 }
 
 .container {
   flex-direction: column;
   gap: 20px;
+  width: min(520px, 92vw);
 }
 
 .choices {
   gap: 20px;
-  width: 400px;
+  width: 100%;
 }
 
 .choices img {
-  width: 100px;
-  height: 100px;
+  width: clamp(64px, 18vmin, 100px);
+  height: clamp(64px, 18vmin, 100px);
   cursor: pointer;
   border-radius: 50%;
 }
@@ -54,7 +56,7 @@ body {
 }
 
 .result {
-  font-size: 28px;
+  font-size: clamp(20px, 5vw, 28px);
   color: yellow;
 }
 

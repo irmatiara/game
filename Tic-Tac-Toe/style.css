@@ -9,20 +9,21 @@
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   background-color: lightslategray;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 16px 0 24px;
 }
 
 h1 {
   color: white;
-  font-size: 32px;
-  padding: 5px 50px;
+  font-size: clamp(20px, 5vw, 32px);
+  padding: 6px clamp(18px, 6vw, 50px);
   background-color: black;
   border-radius: 50px;
   margin-bottom: 20px;
@@ -38,25 +39,25 @@ h1 {
 }
 
 .box {
-  width: 120px;
-  height: 120px;
+  width: clamp(72px, 22vmin, 120px);
+  height: clamp(72px, 22vmin, 120px);
   border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 25px;
+  font-size: clamp(18px, 5vmin, 25px);
 }
 
 .box img {
-  width: 75px;
+  width: clamp(44px, 12vmin, 75px);
 }
 
 .status {
   margin: 20px 0;
-  padding: 10px 40px;
+  padding: 10px clamp(18px, 7vw, 40px);
   border-radius: 50px;
-  font-size: 20px;
+  font-size: clamp(16px, 4.5vw, 20px);
   font-weight: 500;
   background-color: white;
   color: black;
@@ -64,7 +65,7 @@ h1 {
 
 button {
   padding: 10px 20px;
-  font-size: 20px;
+  font-size: clamp(16px, 4.5vw, 20px);
   font-weight: 500;
   color: white;
   background-color: black;
