@@ -7,7 +7,7 @@
     <title>HTML CSS JavaScript Games</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="global.css" />
     <link rel="stylesheet" href="menu.css" />
 </head>
@@ -19,9 +19,6 @@
             <p>Pilih game untuk mulai bermain.</p>
         </header>
         <section class="grid">
-            <a class="card" href="Candy-Crush-Game/index.html">
-                <span class="card-title">Candy Crush Game</span>
-            </a>
             <a class="card" href="Breakout-Game/index.html">
                 <span class="card-title">Breakout Game</span>
             </a>
@@ -69,6 +66,14 @@
             </a>
         </section>
     </main>
+    <script>
+        const grid = document.querySelector(".grid");
+        if (grid) {
+            const cards = grid.querySelectorAll(".card");
+            const remainder = cards.length % 4;
+            grid.dataset.remainder = remainder.toString();
+        }
+    </script>
 </body>
 
 </html>

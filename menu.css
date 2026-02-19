@@ -1,15 +1,15 @@
 :root {
-    --bg: #0f172a;
-    --panel: #111827;
-    --card: #1f2937;
-    --text: #e5e7eb;
-    --muted: #94a3b8;
-    --accent: #38bdf8;
+    --bg: #fff8de;
+    --panel: #fff2c6;
+    --card: #fff8de;
+    --text: #2f2a3b;
+    --muted: #6b6b7a;
+    --accent: #AAC4F5;
 }
 
 body {
-    font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
-    background: radial-gradient(1200px 800px at 10% 10%, #1e293b 0%, #0f172a 45%, #0b1220 100%);
+    font-family: "Fredoka", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
     color: var(--text);
 }
 
@@ -19,8 +19,11 @@ body {
     padding: 48px 0 64px;
 }
 
-.hero {
+.hero.hero {
     margin-bottom: 28px;
+    text-align: center;
+    color: #8CA9FF;
+    text-shadow: 0 4px 12px rgba(140, 169, 255, 0.45);
 }
 
 .hero h1 {
@@ -37,7 +40,7 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
     gap: 16px;
 }
 
@@ -48,8 +51,8 @@ body {
     text-align: center;
     text-decoration: none;
     color: var(--text);
-    background: linear-gradient(180deg, rgba(56, 189, 248, 0.12), rgba(56, 189, 248, 0.02));
-    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: var(--accent);
+    border: 1px solid rgba(140, 169, 255, 0.45);
     border-radius: 14px;
     padding: 18px 14px;
     min-height: 88px;
@@ -58,8 +61,8 @@ body {
 
 .card:hover {
     transform: translateY(-2px);
-    border-color: rgba(56, 189, 248, 0.6);
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.45);
+    border-color: rgba(140, 169, 255, 0.95);
+    box-shadow: 0 14px 34px rgba(140, 169, 255, 0.45);
 }
 
 .card-title {
@@ -68,11 +71,21 @@ body {
 }
 
 @media (max-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(160px, 1fr));
+    }
+
     .page {
         padding: 32px 0 48px;
     }
 
     .card {
         min-height: 72px;
+    }
+}
+
+@media (max-width: 420px) {
+    .grid {
+        grid-template-columns: 1fr;
     }
 }
