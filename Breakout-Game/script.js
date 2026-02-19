@@ -199,6 +199,23 @@ document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
 rulesButton.addEventListener("click", () => rules.classList.add("show"));
 closeButton.addEventListener("click", () => rules.classList.remove("show"));
+canvas.addEventListener("pointerdown", handlePointer);
+canvas.addEventListener("pointermove", handlePointer);
+canvas.addEventListener("touchstart", (e) => e.preventDefault(), {
+  passive: false,
+});
+canvas.addEventListener("touchmove", (e) => e.preventDefault(), {
+  passive: false,
+});
+
+function handlePointer(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const x = (e.clientX - rect.left) * scaleX;
+  paddle.x = x - paddle.w / 2;
+  if (paddle.x < 0) paddle.x = 0;
+  if (paddle.x + paddle.w > canvas.width) paddle.x = canvas.width - paddle.w;
+}
 
 // Init
 update();

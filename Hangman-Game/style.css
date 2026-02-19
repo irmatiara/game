@@ -146,3 +146,33 @@ h3 {
 .notification-container p {
   margin: 0;
 }
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(36px, 1fr));
+  gap: 8px;
+  width: min(520px, 92vw);
+  margin: 20px auto 0;
+}
+
+.key {
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 0;
+  font-family: inherit;
+  font-size: 16px;
+  background-color: var(--secondary-color);
+  color: var(--light-color);
+  cursor: pointer;
+}
+
+.key:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 520px) {
+  .keyboard {
+    grid-template-columns: repeat(6, minmax(36px, 1fr));
+  }
+}

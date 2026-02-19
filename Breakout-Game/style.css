@@ -44,6 +44,7 @@ canvas {
   height: auto;
   max-height: 75vh;
   max-width: 96%;
+  touch-action: none;
 }
 
 .btn {

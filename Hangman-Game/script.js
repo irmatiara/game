@@ -8,6 +8,7 @@ const finalMessageRevealWord = document.getElementById(
   "final-message-reveal-word"
 );
 const figureParts = document.querySelectorAll(".figure-part");
+const keyboard = document.getElementById("keyboard");
 
 const words = [
   "application",
@@ -88,26 +89,45 @@ function showNotification() {
   }, 2000);
 }
 
-window.addEventListener("keypress", (e) => {
-  if (playable) {
-    const letter = e.key.toLowerCase();
-    if (letter >= "a" && letter <= "z") {
-      if (selectedWord.includes(letter)) {
-        if (!correctLetters.includes(letter)) {
-          correctLetters.push(letter);
-          displayWord();
-        } else {
-          showNotification();
-        }
-      } else {
-        if (!wrongLetters.includes(letter)) {
-          wrongLetters.push(letter);
-          updateWrongLettersElement();
-        } else {
-          showNotification();
-        }
-      }
+function handleGuess(letter) {
+  if (!playable) return;
+  if (selectedWord.includes(letter)) {
+    if (!correctLetters.includes(letter)) {
+      correctLetters.push(letter);
+      displayWord();
+    } else {
+      showNotification();
     }
+  } else {
+    if (!wrongLetters.includes(letter)) {
+      wrongLetters.push(letter);
+      updateWrongLettersElement();
+    } else {
+      showNotification();
+    }
+  }
+  const keyButton = keyboard.querySelector(`[data-letter="${letter}"]`);
+  if (keyButton) keyButton.disabled = true;
+}
+
+function buildKeyboard() {
+  keyboard.innerHTML = "";
+  for (let i = 97; i <= 122; i++) {
+    const letter = String.fromCharCode(i);
+    const button = document.createElement("button");
+    button.className = "key";
+    button.type = "button";
+    button.dataset.letter = letter;
+    button.textContent = letter.toUpperCase();
+    button.addEventListener("click", () => handleGuess(letter));
+    keyboard.appendChild(button);
+  }
+}
+
+window.addEventListener("keypress", (e) => {
+  const letter = e.key.toLowerCase();
+  if (letter >= "a" && letter <= "z") {
+    handleGuess(letter);
   }
 });
 
@@ -119,7 +139,9 @@ playAgainButton.addEventListener("click", () => {
   displayWord();
   updateWrongLettersElement();
   popup.style.display = "none";
+  buildKeyboard();
 });
 
 // Init
 displayWord();
+buildKeyboard();

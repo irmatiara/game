@@ -88,6 +88,7 @@
       this.initLevelScores();
       this.initShapes();
       this.bindKeyEvents();
+      this.bindTouchControls();
       this.play();
     },
     initBoard: function () {
@@ -242,6 +243,25 @@
         document.addEventListener(event, cb, false);
       } else {
         document.attachEvent("on" + event, cb);
+      }
+    },
+    bindTouchControls: function () {
+      var me = this;
+      var buttons = document.querySelectorAll(".controls [data-move]");
+      buttons.forEach(function (button) {
+        button.addEventListener("pointerdown", function (e) {
+          e.preventDefault();
+          me.move(button.dataset.move);
+        });
+      });
+      var pauseButton = document.querySelector(
+        ".controls [data-action='pause']"
+      );
+      if (pauseButton) {
+        pauseButton.addEventListener("pointerdown", function (e) {
+          e.preventDefault();
+          me.togglePause();
+        });
       }
     },
     handleKey: function (e) {

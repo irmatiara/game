@@ -175,6 +175,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   document.addEventListener("keyup", control);
 
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  function handleTouchStart(e) {
+    const touch = e.touches[0];
+    if (!touch) return;
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }
+
+  function handleTouchEnd(e) {
+    const touch = e.changedTouches[0];
+    if (!touch) return;
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+    if (Math.max(absX, absY) < 30) return;
+
+    if (absX > absY) {
+      if (deltaX > 0) keyRight();
+      else keyLeft();
+    } else {
+      if (deltaY > 0) keyDown();
+      else keyUp();
+    }
+  }
+
+  gridDisplay.addEventListener("touchstart", handleTouchStart, {
+    passive: true,
+  });
+  gridDisplay.addEventListener("touchend", handleTouchEnd);
+
   function keyRight() {
     moveRight();
     combineRow();
