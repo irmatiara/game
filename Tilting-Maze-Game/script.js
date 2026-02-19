@@ -357,7 +357,7 @@ function resetGame() {
       `;
 
   if (hardMode) {
-    noteText.textContent = "Hard mode, avoid black holes.";
+    noteText.textContent = "Hindari lingkaran hitam.";
   } else {
     noteText.textContent = "Satukan bola dan arahkan ke lingkaran.";
   }
